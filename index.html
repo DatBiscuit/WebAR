@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./css/main.css">
+  </head>
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <!-- we import arjs version without NFT but with marker + location based support -->
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <body style="margin : 0px; overflow: hidden;">
+    <a-scene embedded arjs>
+      <a-box id="box" position="0 0 -15" rotation="0 45 0" color="#4CC3D9"></a-box>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+    <button onclick="SpinCube()">
+      Hold me to spin cube
+    </button>
+    
+    <script>
+      var box = document.getElementById("box");
+      var speed = 0.1;
+      var box_y;
+      console.log(box.getAttribute('rotation'));
+
+      function SpinCube() {
+        var box_y = box.getAttribute('rotation').y;
+        box_y += 1;
+        box.setAttribute('rotation', '0 ' + box_y.toString() + ' 0');
+      }
+      setInterval(function() {
+        var box_y = box.getAttribute('rotation').y;
+        box_y += speed;
+        box.setAttribute('rotation', '0 ' + box_y.toString() + ' 0');
+      });
+    </script>
+  
+  </body>
+</html>
