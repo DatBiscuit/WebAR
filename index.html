@@ -12,7 +12,7 @@
 
       <a-entity camera></a-entity>
     </a-scene>
-    <button onclick="SpinCube()">
+    <button ontouchstart="StartSpin()" ontouchend="StopSpin()">
       Hold me to spin cube
     </button>
     
@@ -20,18 +20,27 @@
       var box = document.getElementById("box");
       var speed = 0.1;
       var box_y;
-      console.log(box.getAttribute('rotation'));
+      var currInterval;
+
+      function StartSpin() {
+        currInterval = setInterval(function() {
+          SpinCube();
+        });
+      }
+
+      function StopSpin() {
+        clearInterval(currInterval);
+      }
 
       function SpinCube() {
         var box_y = box.getAttribute('rotation').y;
-        box_y += 1;
-        box.setAttribute('rotation', '0 ' + box_y.toString() + ' 0');
-      }
-      setInterval(function() {
-        var box_y = box.getAttribute('rotation').y;
         box_y += speed;
         box.setAttribute('rotation', '0 ' + box_y.toString() + ' 0');
-      });
+      }
+
+      // setInterval(function() {
+      //   SpinCube();
+      // });
     </script>
   
   </body>
