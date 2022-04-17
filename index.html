@@ -7,22 +7,29 @@
   <!-- we import arjs version without NFT but with marker + location based support -->
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   <body style="margin : 0px; overflow: hidden;">
-    <a-scene embedded arjs>
-      <a-box id="box" position="0 0 -15" rotation="0 45 0" color="#4CC3D9"></a-box>
+    <a-scene embedded arjs cursor='rayOrigin: mouse; fuse: true; fuseTimeout: 0;' vr-mode-ui="enabled: false">
+      <!-- <a-box id="box" position="0 0 0" rotation="0 45 0" color="#4CC3D9"></a-box> -->
+      <a-entity gltf-model="./assets/magnemite/scene.gltf" rotation="0 180 0" scale="0.15 0.15 0.15" gps-entity-place="longitude: -121.512010; latitude: 38.514930;" animation-mixer/>
+      <a-camera gps-camera position="0 0 15" rotation-reader></a-camera>
 
-      <a-entity camera></a-entity>
     </a-scene>
-    <button ontouchstart="StartSpin()" ontouchend="StopSpin()">
+    <!-- <button ontouchstart="StartSpin()" ontouchend="StopSpin()">
       Hold me to spin cube
-    </button>
+    </button> -->
     
     <script>
+      document.body.onload = function() {
+      }
+      
       var box = document.getElementById("box");
       var speed = 0.1;
       var box_y;
       var currInterval;
-
+      
       function StartSpin() {
+        var video = document.getElementById("arjs-video");
+        console.log("hello");
+        console.log(video);
         currInterval = setInterval(function() {
           SpinCube();
         });
@@ -38,9 +45,6 @@
         box.setAttribute('rotation', '0 ' + box_y.toString() + ' 0');
       }
 
-      // setInterval(function() {
-      //   SpinCube();
-      // });
     </script>
   
   </body>
